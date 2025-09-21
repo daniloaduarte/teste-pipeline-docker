@@ -2,12 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia apenas o csproj para restaurar as dependências
-COPY C:\Sistemas\teste docker\src\MeuApi\MeuApi.csproj
+# Copia o csproj e restaura dependências
+COPY src/MeuApi/MeuApi.csproj .
 RUN dotnet restore MeuApi.csproj
 
-# Copia o restante do código
-COPY minha-api/. .
+# Copia o resto do código
+COPY src/MeuApi/. .
 RUN dotnet publish -c Release -o /app
 
 # Etapa 2 - Runtime
